@@ -1,1 +1,31 @@
 /* Other rules */
+
+.container {
+  margin: 0 300px;
+}
+
+.header {
+  border-bottom: solid grey 2px;
+  margin-bottom: 20px;
+}
+
+.header img {
+  width: 200px;
+}
+
+.restaurant-componant {
+  display: flex;
+  height: 200px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.restaurant-illustration {
+  object-fit: cover;
+  border-radius: 10px;
+  flex: 1;
+}
+
+.restaurant-title-description {
+  flex: 3;
+}
