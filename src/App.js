@@ -13,17 +13,19 @@ function App() {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const [counter, setCounter] = useState([0]);
+  const [counter, setCounter] = useState(0);
+
+  const [panier, setPanier] = useState([]);
 
   const minusSign = () => {
     const newCounter = [...counter];
-    newCounter.pop();
+    newCounter.push(0);
     setCounter(newCounter - 1);
   };
 
   const addSign = () => {
     const newCounter = [...counter];
-    newCounter.pop();
+    newCounter.push(0);
     setCounter(newCounter + 1);
   };
 
@@ -77,13 +79,16 @@ function App() {
                         return (
                           <div
                             className="meal-description-illustration"
-                            onClick={(counter) => {
+                            onClick={() => {
                               console.log(
                                 "J'ai cliqué sur le produit =======>",
                                 mealOffers
                               );
 
-                              setCounter(counter + 1);
+                              // Mise à jour du panier
+                              const newPanier = [...panier];
+                              newPanier.push(mealOffers);
+                              setPanier(newPanier);
                             }}
                           >
                             <div className="mealOffer">
@@ -109,14 +114,12 @@ function App() {
                                 </div>
                               </div>
                             </div>
-                            {mealOffers.picture ? (
+                            {mealOffers.picture && (
                               <img
                                 src={mealOffers.picture}
                                 className="meal-illustration"
                                 alt="meal-illustration"
                               />
-                            ) : (
-                              <span></span>
                             )}
                           </div>
                         );
@@ -127,7 +130,7 @@ function App() {
               })}
             </div>
             <div className="panier">
-              {counter < 1 ? (
+              {panier.length < 1 ? (
                 <>
                   <div className="div-empty-product-button">
                     <button id="empty-product-button">
@@ -144,23 +147,41 @@ function App() {
                     Valider mon panier
                   </button>
                   <div className="panier-plein">
-                    <div className="panier-product-selection">
-                      <div className="buttons-product-selection">
-                        <div className="button-circle">
-                          <button className="minus-button" onClick={minusSign}>
-                            -
-                          </button>
-                        </div>
-                        <button class="counter">{counter}</button>
-                        <div className="button-circle">
-                          <button className="plus-button" onClick={addSign}>
-                            +
-                          </button>
-                        </div>
-                        <p>Nom du produit</p>
-                      </div>
-                      <div>price</div>
-                    </div>
+                    {data.categories.map((mealType, index) => {
+                      return (
+                        <>
+                          {mealType.meals.map((meal, index) => {
+                            return (
+                              <div className="panier-product-selection">
+                                <div className="buttons-product-selection">
+                                  <div className="button-circle">
+                                    <button
+                                      className="minus-button"
+                                      // onClick={}
+                                    >
+                                      -
+                                    </button>
+                                  </div>
+                                  <button class="counter">{counter}</button>
+                                  <div className="button-circle">
+                                    <button
+                                      className="plus-button"
+                                      // onClick={}
+                                    >
+                                      +
+                                    </button>
+                                  </div>
+                                  <p>{meal.title}</p>
+                                </div>
+                                <div>{meal.price} €</div>
+                              </div>
+                            );
+                          })}
+                          ;
+                        </>
+                      );
+                    })}
+                    ;
                     <div className="sous-total-bloc-panier">
                       Sous-total & Frais de livraison
                     </div>
