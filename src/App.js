@@ -12,7 +12,20 @@ function App() {
   // Création des états
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [categories, setCategories] = useState({});
+
+  const [counter, setCounter] = useState([0]);
+
+  const minusSign = () => {
+    const newCounter = [...counter];
+    newCounter.pop();
+    setCounter(newCounter - 1);
+  };
+
+  const addSign = () => {
+    const newCounter = [...counter];
+    newCounter.pop();
+    setCounter(newCounter + 1);
+  };
 
   console.log("Render !");
 
@@ -39,37 +52,126 @@ function App() {
     <span>En cours de chargement...</span>
   ) : (
     // Code de la page
-    <div className="container">
+    <div className="body">
       <div className="header">
-        <img src={Deliveroo} alt="logo-deliveroo" />
-      </div>
-      <main>
+        <div className="border-logo">
+          <img src={Deliveroo} alt="logo-deliveroo" />
+        </div>
         <Restaurant
           name={data.restaurant.name}
           description={data.restaurant.description}
           picture={data.restaurant.picture}
         />
-        <>
-          {data.categories.map((mealType, index) => {
-            return (
-              <div className="mealPropositions">
-                <h2 key={index}>{mealType.name}</h2>;
+      </div>
+
+      <div className="container">
+        <main>
+          <div className="restaurantOffers-section">
+            <div div className="restaurantOffers">
+              {data.categories.map((mealType, index) => {
+                return (
+                  <div className="mealPropositions">
+                    <h2 key={index}>{mealType.name}</h2>
+                    <div className="meal-bloc">
+                      {mealType.meals.map((mealOffers, index) => {
+                        return (
+                          <div
+                            className="meal-description-illustration"
+                            onClick={(counter) => {
+                              console.log(
+                                "J'ai cliqué sur le produit =======>",
+                                mealOffers
+                              );
+
+                              setCounter(counter + 1);
+                            }}
+                          >
+                            <div className="mealOffer">
+                              <div className="bloc-description">
+                                <h3>{mealOffers.title}</h3>
+                                <div className="mealOffer-description">
+                                  {mealOffers.description ? (
+                                    <span>{mealOffers.description}</span>
+                                  ) : (
+                                    <span></span>
+                                  )}
+                                </div>
+                                <div className="price-favIcon">
+                                  <p>{mealOffers.price} €</p>
+                                  {mealOffers.popular === true ? (
+                                    <div className="fav-icon">
+                                      <i class="fas fa-star"></i>{" "}
+                                      <span>Populaire</span>
+                                    </div>
+                                  ) : (
+                                    <span></span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            {mealOffers.picture ? (
+                              <img
+                                src={mealOffers.picture}
+                                className="meal-illustration"
+                                alt="meal-illustration"
+                              />
+                            ) : (
+                              <span></span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="panier">
+              {counter < 1 ? (
                 <>
-                  {categories.meals.map((mealOffers, index) => {
-                    // console.log("test");
-                    // const { id, title, description, price } = meals;
-                    return (
-                      <div className="mealOffer">
-                        <h3 key={index}>{mealOffers.title}</h3>
-                      </div>
-                    );
-                  })}
+                  <div className="div-empty-product-button">
+                    <button id="empty-product-button">
+                      Valider mon panier
+                    </button>
+                  </div>
+                  <div className="panier-vide">
+                    <p>Votre panier est vide</p>
+                  </div>
                 </>
-              </div>
-            );
-          })}
-        </>
-      </main>
+              ) : (
+                <div className="div-product-button">
+                  <button id="validate-product-button">
+                    Valider mon panier
+                  </button>
+                  <div className="panier-plein">
+                    <div className="panier-product-selection">
+                      <div className="buttons-product-selection">
+                        <div className="button-circle">
+                          <button className="minus-button" onClick={minusSign}>
+                            -
+                          </button>
+                        </div>
+                        <button class="counter">{counter}</button>
+                        <div className="button-circle">
+                          <button className="plus-button" onClick={addSign}>
+                            +
+                          </button>
+                        </div>
+                        <p>Nom du produit</p>
+                      </div>
+                      <div>price</div>
+                    </div>
+                    <div className="sous-total-bloc-panier">
+                      Sous-total & Frais de livraison
+                    </div>
+                    <div className="total-bloc-panier">Total</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
