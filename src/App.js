@@ -21,8 +21,7 @@ function App() {
     try {
       const fetchData = async () => {
         const response = await axios.get(
-          // "https://deliveroo-backend-project-v1.herokuapp.com/"
-          "http://localhost:4000"
+          "https://deliveroo-panier-app.herokuapp.com/"
         );
         console.log(response.data);
         setData(response.data);
