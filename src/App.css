@@ -9,7 +9,7 @@
 .container {
   box-sizing: border-box;
 
-  margin: 10px 300px;
+  margin: 10px 200px;
 }
 
 h1,
@@ -38,13 +38,13 @@ span {
 }
 
 .restaurantOffers-section {
-  margin: 0 300px;
+  margin: 0 200px;
 }
 
 .restaurant-componant {
   display: flex;
   justify-content: space-between;
-  margin: 0 300px;
+  margin: 0 200px;
   align-items: center;
   padding: 20px 0;
 }
@@ -170,13 +170,8 @@ i {
 
 .panier {
   width: 30%;
-  background-color: white;
-  display: flex;
-  border-radius: 5px;
-  flex-direction: column;
-  height: 200px;
-  color: #8b9a9b;
-  align-items: center;
+  height: auto;
+ position: relative;
 }
 
 /*panier vide*/
@@ -211,6 +206,8 @@ i {
 
 /*panier plein*/
 
+
+
 #validate-product-button {
   margin: 10px 0;
   border: none;
@@ -222,7 +219,7 @@ i {
   font-weight: bold;
   color: white;
   text-align: center;
-  width: 100%;
+  width: 90%;
   padding: 10px;
 }
 
@@ -230,29 +227,32 @@ i {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  background-color: white;
+  margin-bottom: 20px;
+  font-size: 10px;
+  width: 100%;
+  height: auto;
+  position: sticky;
+  top: 0;
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 5px;
+  color: #8b9a9b;
+
 }
 
-.panier-plein > div {
-  height: 20px;
-  padding: 10px;
-  width: 300px;
-}
 
-.panier-plein > div:nth-child(2) {
-  border-top: solid grey 1px;
-  border-bottom: solid grey 1px;
-}
+ 
 
 .panier-product-selection {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
+  align-items: center;
+  font-size: 12px;
 }
 
 .buttons-product-selection {
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
@@ -262,22 +262,52 @@ i {
   margin-left: 10px;
 }
 
-.minus-button,
-.counter,
-.plus-button {
+.counter {
   border: none;
   background-color: white;
-  width: 10%;
-  height: auto;
 }
 
 .minus-button,
 .plus-button {
   color: #00cdbd;
+  background-color: white;
   font-size: 16px;
   text-align: center;
   border: #00cdbd solid 2px;
   border-radius: 50%;
   text-align: center;
   width: 25px;
+}
+
+.minus-button:hover,
+.plus-button:hover {
+  cursor: pointer;
+}
+
+.product-price {
+  width: 50px;
+text-align: end;  
+}
+
+.total-price-bloc-panier {
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  width: 100%;
+}
+
+.sous-total, .frais-de-livraison,.total-panier {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 5px 0;
+}
+
+.button-validate-container {
+  display: flex;
+  justify-content: center;
+}
+
+.total-panier {
+  font-weight: bold;
 }
